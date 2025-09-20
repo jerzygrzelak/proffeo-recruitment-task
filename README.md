@@ -13,10 +13,12 @@
 - **Animacje:** `@angular/animations` z `@animate.enter` / `@animate.leave`
 - **Responsywność:** mobile-first + desktop
 
-## Struktura katalogów i komponenty
+## Struktura katalogów, komponenty i serwisy
 
 - app
   - services
+    - api.service
+    - store.service
   - shared
     - models
     - utils
@@ -26,3 +28,5 @@
       - post-details-dialog
       - post-filters
       - favorite-toggle
+
+Stan zarządzany wyłącznie przy pomocy serwisów i sygnałów.
