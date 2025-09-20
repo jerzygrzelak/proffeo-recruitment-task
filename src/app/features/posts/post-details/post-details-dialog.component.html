@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>
+  {{ data.title }}
+</h2>
+<mat-dialog-content>
+  <section>
+    @let author = users()[data.userId];
+    <h3 class="font-bold">
+      @if (author) {
+        <p>{{ author.name }} ({{ author.email }})</p>
+      } @else {
+        <mat-spinner diameter="32"></mat-spinner>
+      }
+    </h3>
+  </section>
+
+  <section>
+    <p class="text-lg leading-relaxed mb-5">{{ data.body }}</p>
+  </section>
+
+  <section class="bg-white p-3 rounded-lg border border-gray-200">
+    <h3 class="font-semibold text-gray-700 mb-3">
+      @let postComments = comments()[data.id];
+      Comments
+      @if (postComments) {
+        ({{ postComments.length }})
+      } @else {
+        <mat-spinner diameter="32"></mat-spinner>
+      }
+    </h3>
+    @if (postComments) {
+      <ul class="space-y-4">
+        @for (comment of postComments; track comment.id) {
+          <li class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+            <p class="font-semibold text-gray-800">{{ comment.name }}</p>
+            <p class="text-sm text-gray-500 mb-1">{{ comment.email }}</p>
+            <p class="text-gray-700">{{ comment.body }}</p>
+          </li>
+        }
+      </ul>
+    } @else {
+      <mat-spinner diameter="32"></mat-spinner>
+    }
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <!-- cursor pointer not working on matButton for some reason, hence Tailwind class. -->
+  <button matButton (click)="onNoClick()" class="cursor-pointer">Close</button>
+</mat-dialog-actions>

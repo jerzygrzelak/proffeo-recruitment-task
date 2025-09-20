@@ -1,13 +1,33 @@
 <div class="h-screen overflow-y-auto p-4 space-y-4">
-  @for (post of posts(); track post.id) {
-    <mat-card appearance="outlined">
-      <mat-card-header>
-        <mat-card-title> {{ post.title }}u</mat-card-title>
-        <mat-card-subtitle>by user-{{ post.userId }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ post.body }}</p>
-      </mat-card-content>
-    </mat-card>
+  @if (loadingPosts()) {
+    <mat-spinner></mat-spinner>
+  } @else {
+    @for (post of filteredPosts(); track post.id) {
+      <mat-card
+        appearance="outlined"
+        class="cursor-pointer relative"
+        (click)="openPostDetailsDialog(post)"
+      >
+        <mat-card-header class="flex justify-between items-center">
+          <mat-card-title>{{ post.title }}</mat-card-title>
+
+          <mat-checkbox
+            [checked]="isFavorite(post.id)"
+            (change)="toggleFavorite(post.id)"
+            (click)="$event.stopPropagation()"
+          >
+            Favorite
+          </mat-checkbox>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>{{ post.body | slice: 0 : 100 }}...</p>
+        </mat-card-content>
+      </mat-card>
+    }
+
+    @if (filteredPosts().length === 0) {
+      <h1 class="font-bold">No posts found.</h1>
+    }
   }
 </div>

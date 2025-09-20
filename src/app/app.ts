@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PostsListComponent } from './features/posts';
-import { MatCardModule } from '@angular/material/card';
+import { PostFiltersComponent } from './features/posts/post-filters/post-filters.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, PostsListComponent],
+  imports: [RouterOutlet, PostsListComponent, PostFiltersComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
